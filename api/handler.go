@@ -2,8 +2,9 @@ package handler
 
 import (
 	"fmt"
-	"github.com/ethanthatonekid/ditto-edge/internal/dittoclient"
 	"net/http"
+
+	"github.com/ethanthatonekid/ditto-edge/internal/dittoclient"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
