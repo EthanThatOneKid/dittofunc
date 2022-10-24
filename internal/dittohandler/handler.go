@@ -1,4 +1,4 @@
-package dittoclient
+package dittohandler
 
 import (
 	"encoding/json"
@@ -50,20 +50,20 @@ func fetchGitHubSchema(path string) (*program.Schema, error) {
 	return schema, nil
 }
 
-func Handle(w http.ResponseWriter, r *http.Request) {
+func Handle(w http.ResponseWriter, r *http.Request) error {
 	// Parse the path to the schema file on GitHub
 	schemaPath := parseGitHubURL(r.URL.Path)
 
 	programConfig, generateConfig, err := parseConfigFromRequest(r)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+		return err
 	}
 
 	program, err := program.New(programConfig, generateConfig)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+		return err
 	}
 
 	program.Generate()
