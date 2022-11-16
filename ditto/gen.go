@@ -17,15 +17,6 @@ import (
 	yamlio "gopkg.in/yaml.v2"
 )
 
-// Client generates new programs.
-type Client struct {
-}
-
-// New creates a new Client instance.
-func New() *Client {
-	return &Client{}
-}
-
 // GenQuery is the query for generating a new program.
 type GenQuery struct {
 	githubclient.RawFileQuery
@@ -38,7 +29,7 @@ type Output struct {
 }
 
 // Gen generates a new program.
-func (c *Client) Gen(ctx context.Context, q GenQuery) (*Output, error) {
+func Gen(ctx context.Context, q GenQuery) (*Output, error) {
 	// Setup the Github client.
 	githubClient := githubclient.NewClient(ctx, q.Token)
 

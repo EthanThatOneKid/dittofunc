@@ -12,7 +12,6 @@ import (
 // Handler is the main handler.
 // It is used to handle HTTP requests.
 type Handler struct {
-	*ditto.Client
 }
 
 // Do not remove this line.
@@ -21,7 +20,7 @@ var _ http.Handler = (*Handler)(nil)
 
 // New creates a new handler.
 func New() *Handler {
-	return &Handler{Client: ditto.New()}
+	return &Handler{}
 }
 
 // Do handles the request.
@@ -34,7 +33,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the generated output.
-	output, err := h.Gen(r.Context(), *q)
+	output, err := ditto.Gen(r.Context(), *q)
 	if err != nil {
 		servutil.WriteErr(w, r, http.StatusInternalServerError, err)
 		return
