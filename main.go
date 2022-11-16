@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ethanthatonekid/dittofunc/dittofunc"
+	"github.com/ethanthatonekid/dittofunc/ditto/httpserver"
 )
 
 var addr = "localhost:8080"
@@ -16,7 +16,7 @@ func main() {
 
 	log.Println("listening on address", addr)
 
-	if err := http.ListenAndServe(addr, dittofunc.NewHandler()); err != nil {
+	if err := http.ListenAndServe(addr, httpserver.New()); err != nil {
 		log.Fatalln(err)
 	}
 }

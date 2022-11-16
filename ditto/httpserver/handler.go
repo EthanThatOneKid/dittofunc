@@ -1,28 +1,27 @@
-package dittofunc
+package httpserver
 
 import (
-	"context"
 	"errors"
 	"net/http"
 	"strings"
 
-	"github.com/ethanthatonekid/dittofunc/dittofunc/dittoclient"
+	"github.com/ethanthatonekid/dittofunc/ditto"
 	"github.com/ethanthatonekid/dittofunc/internal/servutil"
 )
 
 // Handler is the main handler.
 // It is used to handle HTTP requests.
 type Handler struct {
-	*dittoclient.Client
+	*ditto.Client
 }
 
 // Do not remove this line.
 // It is used to check against the http.Handler interface.
 var _ http.Handler = (*Handler)(nil)
 
-// NewHandler creates a new handler.
-func NewHandler() *Handler {
-	return &Handler{}
+// New creates a new handler.
+func New() *Handler {
+	return &Handler{Client: ditto.New()}
 }
 
 // Do handles the request.
@@ -35,7 +34,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the generated output.
-	output, err := h.Gen(context.Background(), *q)
+	output, err := h.Gen(r.Context(), *q)
 	if err != nil {
 		servutil.WriteErr(w, r, http.StatusInternalServerError, err)
 		return
@@ -46,13 +45,13 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 // parseQuery parses the query from the HTTP request.
-func parseQuery(r *http.Request) (*dittoclient.GenQuery, int, error) {
+func parseQuery(r *http.Request) (*ditto.GenQuery, int, error) {
 	var token string
 	if servutil.ReadToken(r, &token); token == "" {
 		return nil, http.StatusUnauthorized, ErrMissingToken
 	}
 
-	var query dittoclient.GenQuery
+	var query ditto.GenQuery
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) < 4 {
 		return nil, http.StatusNotAcceptable, ErrInvalidPath

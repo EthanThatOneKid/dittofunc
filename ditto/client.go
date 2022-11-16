@@ -1,5 +1,4 @@
-// dittoclient is a client for the Ditto API.
-package dittoclient
+package ditto
 
 import (
 	"bytes"
@@ -8,7 +7,7 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/ethanthatonekid/dittofunc/dittofunc/githubclient"
+	"github.com/ethanthatonekid/dittofunc/ditto/githubclient"
 	"github.com/juanvillacortac/ditto/pkg/ast"
 	"github.com/juanvillacortac/ditto/pkg/generators"
 	"github.com/juanvillacortac/ditto/pkg/parser/proto"
@@ -22,8 +21,8 @@ import (
 type Client struct {
 }
 
-// NewClient creates a new Client instance.
-func NewClient() *Client {
+// New creates a new Client instance.
+func New() *Client {
 	return &Client{}
 }
 

@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ethanthatonekid/dittofunc/dittofunc"
+	"github.com/ethanthatonekid/dittofunc/ditto/httpserver/ditto"
 )
 
 var origin = "http://localhost:8080"
@@ -22,10 +22,10 @@ func main() {
 	e := MustParseFlags()
 
 	// Create a new client.
-	client := dittofunc.NewHTTPClient(*http.DefaultClient, e.Origin)
+	client := ditto.New(*http.DefaultClient, e.Origin)
 
 	// Create a new query.
-	q := dittofunc.NewGenQuery(e.GithubToken, e.Owner, e.Repo, e.Path, e.Ref)
+	q := ditto.NewGenQuery(e.GithubToken, e.Owner, e.Repo, e.Path, e.Ref)
 
 	// Execute the query.
 	generated, err := client.Gen(q)

@@ -4,7 +4,8 @@ import (
 	"log"
 
 	"github.com/apex/gateway"
-	"github.com/ethanthatonekid/dittofunc/dittofunc"
+
+	"github.com/ethanthatonekid/dittofunc/ditto/httpserver"
 )
 
 func main() {
@@ -14,5 +15,5 @@ func main() {
 }
 
 func run() error {
-	return gateway.ListenAndServe("", dittofunc.NewHandler())
+	return gateway.ListenAndServe("", httpserver.New())
 }

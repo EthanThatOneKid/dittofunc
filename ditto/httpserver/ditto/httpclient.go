@@ -1,4 +1,4 @@
-package dittofunc
+package ditto
 
 import (
 	"encoding/json"
@@ -9,8 +9,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/ethanthatonekid/dittofunc/dittofunc/dittoclient"
-	"github.com/ethanthatonekid/dittofunc/dittofunc/githubclient"
+	"github.com/ethanthatonekid/dittofunc/ditto"
+	"github.com/ethanthatonekid/dittofunc/ditto/githubclient"
 	"github.com/pkg/errors"
 )
 
@@ -19,13 +19,13 @@ type HTTPClient struct {
 	Origin string
 }
 
-// NewHTTPClient creates a new Client instance.
-func NewHTTPClient(httpClient http.Client, origin string) *HTTPClient {
+// New creates a new Client instance.
+func New(httpClient http.Client, origin string) *HTTPClient {
 	return &HTTPClient{Client: &httpClient, Origin: origin}
 }
 
 // GenQuery is a query required by the Gen function.
-type GenQuery dittoclient.GenQuery
+type GenQuery ditto.GenQuery
 
 // NewGenQuery is a query for the Gen function.
 func NewGenQuery(token, owner, repo, path, ref string) *GenQuery {
@@ -41,7 +41,7 @@ func NewGenQuery(token, owner, repo, path, ref string) *GenQuery {
 }
 
 // Gen generates a new program using the given query and passing it to the given HTTP client.
-func (c *HTTPClient) Gen(q *GenQuery) (*dittoclient.Output, error) {
+func (c *HTTPClient) Gen(q *GenQuery) (*ditto.Output, error) {
 	// Make the request URL.
 	u, err := c.makeRequestURL(*q)
 	if err != nil {
@@ -73,7 +73,7 @@ func (c *HTTPClient) Gen(q *GenQuery) (*dittoclient.Output, error) {
 	}
 
 	// Decode the response.
-	var output dittoclient.Output
+	var output ditto.Output
 	if err := json.NewDecoder(resp.Body).Decode(&output); err != nil {
 		return nil, errors.Wrap(err, "failed to decode response")
 	}
@@ -91,9 +91,9 @@ func (c *HTTPClient) makeRequestURL(q GenQuery) (*url.URL, error) {
 	return &url.URL{
 		Scheme: scheme,
 		Host:   host,
-		Path:   path.Join(q.Owner, q.Repo, q.Path),
+		Path:   path.Join(q.RawFileQuery.Owner, q.RawFileQuery.Repo, q.RawFileQuery.Path),
 		RawQuery: url.Values{
-			"ref": []string{q.Ref},
+			"ref": []string{q.RawFileQuery.Path},
 		}.Encode(),
 	}, nil
 }
