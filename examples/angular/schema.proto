@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ejemplo;
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.MessageOptions {
+  required string table_name = 5001;
+  required string sp_name = 5002;
+}
+
+message Auxiliary {
+  option (filter) = "AuxiliaryFilter";
+  required int64 id = 1 [pk = true];
+  required string name = 2;
+  required boolean active = 3;
+  required int64 idUser = 4;
+  required string userName = 5;
+}
+
+message AuxiliaryListFilter {
+  option (service_ignore) = true;
+  required int64 id = 1 [default = -1];
+  required int32 active = 3 [default = -1];
+  required int64 idUser = 4 [default = -1];
+}
+
+message AuxiliaryFilter {
+  option (service_ignore) = true;
+  required int64 id = 1 [pk = true];
+}

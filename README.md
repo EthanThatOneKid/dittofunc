@@ -1,2 +1,3 @@
-# ditto-edge
-An edge server implementation of Ditto
+# dittofunc
+
+A Netlify HTTP server implementation of Ditto code generation.
