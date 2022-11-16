@@ -13,8 +13,8 @@ type Client struct {
 	ctx context.Context
 }
 
-// NewClient creates a new Client instance.
-func NewClient(ctx context.Context, token string) *Client {
+// New creates a new Client instance.
+func New(ctx context.Context, token string) *Client {
 	return &Client{
 		Client: github.NewClient(
 			oauth2.NewClient(
@@ -24,6 +24,7 @@ func NewClient(ctx context.Context, token string) *Client {
 				),
 			),
 		),
+		ctx: ctx,
 	}
 }
 

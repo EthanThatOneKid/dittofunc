@@ -1,5 +1,7 @@
 // Run:
 // go run examples/angular/main.go -token=...
+// Based on:
+// https://github.com/juanvillacortac/ditto/tree/7118ccafe58f218892627b6dd1eb4601781b591b/examples/angular
 package main
 
 import (
@@ -11,9 +13,9 @@ import (
 )
 
 var origin = "http://localhost:8080"
-var owner = "ethanthatonekid"
-var repo = "dittofunc"
-var path = "config"
+var owner = "juanvillacortac"
+var repo = "ditto"
+var path = "/examples/angular/config.yml"
 var ref = "main"
 var token string
 
@@ -25,7 +27,13 @@ func main() {
 	client := ditto.New(*http.DefaultClient, e.Origin)
 
 	// Create a new query.
-	q := ditto.NewGenQuery(e.GithubToken, e.Owner, e.Repo, e.Path, e.Ref)
+	q := ditto.NewGenQuery(
+		/* token=*/ e.GithubToken,
+		/* owner=*/ e.Owner,
+		/* repo=*/ e.Repo,
+		/* path=*/ e.Path,
+		/* ref=*/ e.Ref,
+	)
 
 	// Execute the query.
 	generated, err := client.Gen(q)

@@ -31,7 +31,7 @@ type Output struct {
 // Gen generates a new program.
 func Gen(ctx context.Context, q GenQuery) (*Output, error) {
 	// Setup the Github client.
-	githubClient := githubclient.NewClient(ctx, q.Token)
+	githubClient := githubclient.New(ctx, q.Token)
 
 	// Get the program config.
 	p, err := getProgram(githubClient, getProgramConfigQuery{q.RawFileQuery})

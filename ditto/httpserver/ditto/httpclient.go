@@ -91,9 +91,9 @@ func (c *HTTPClient) makeRequestURL(q GenQuery) (*url.URL, error) {
 	return &url.URL{
 		Scheme: scheme,
 		Host:   host,
-		Path:   path.Join(q.RawFileQuery.Owner, q.RawFileQuery.Repo, q.RawFileQuery.Path),
+		Path:   path.Join(q.Owner, q.Repo, q.Path),
 		RawQuery: url.Values{
-			"ref": []string{q.RawFileQuery.Path},
+			"ref": []string{q.Ref},
 		}.Encode(),
 	}, nil
 }
