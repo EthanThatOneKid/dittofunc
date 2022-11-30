@@ -23,7 +23,7 @@ func New() *Handler {
 	return &Handler{}
 }
 
-// Do handles the request.
+// ServeHTTP handles the request.
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Parse the query.
 	q, code, err := parseQuery(r)
