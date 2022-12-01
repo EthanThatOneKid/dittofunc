@@ -73,3 +73,17 @@ go run .
 ```
 
 ## Deployment
+
+The Ditto `httpserver.Handler` is a simple HTTP handler that receives a Ditto configuration file from GitHub and generates the code.
+
+Netlify is a great option for hosting the server.
+
+### Netlify
+
+Visit the [Netlify](https://www.netlify.com/) website and create an account.
+
+[Get started with a new site from GitHub](https://app.netlify.com/start).
+
+## License
+
+[MIT](LICENSE)

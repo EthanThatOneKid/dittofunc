@@ -1,0 +1,20 @@
+[template.environment]
+  # List environment tokens here.
+  # Example:
+  # GITHUB_TOKEN = "GitHub personal access token"
+
+[build]
+  base = "internal/netlify/"
+  ignore = "/bin/false"
+
+[build.environment]
+  GO_VERSION = "1.18"
+
+[functions]
+  directory = "functions/"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
