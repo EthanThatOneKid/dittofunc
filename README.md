@@ -37,7 +37,7 @@ func main() {
 	client := ditto.New(*http.DefaultClient, origin)
 
 	// Create a new query.
-	q := ditto.NewGenQuery(origin, owner, repo, path, ref)
+	q := ditto.NewGenQuery(token, owner, repo, path, ref)
 
 	// Execute the query.
 	generated, err := client.Gen(q)
@@ -62,8 +62,6 @@ go run examples/hello_world/main.go -token=...
 
 The Ditto `httpserver.Handler` is a simple HTTP handler that receives a Ditto configuration file from GitHub and generates the code.
 
-### Self-hosting
-
 Requirements:
 
 - [Go](https://go.dev/dl/)
@@ -74,11 +72,9 @@ go run .
 
 ## Deployment
 
-The Ditto `httpserver.Handler` is a simple HTTP handler that receives a Ditto configuration file from GitHub and generates the code.
+### Netlify
 
 Netlify is a great option for hosting the server.
-
-### Netlify
 
 Visit the [Netlify](https://www.netlify.com/) website and create an account.
 
