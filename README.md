@@ -84,6 +84,12 @@ Visit the [Netlify](https://www.netlify.com/) website and create an account.
 
 [Get started with a new site from GitHub](https://app.netlify.com/start).
 
+Select the GitHub repository and branch.
+
+Set the base directory to `internal/netlify`.
+
+Ignore the build command and publish directory.
+
 ## License
 
 [MIT](LICENSE)
