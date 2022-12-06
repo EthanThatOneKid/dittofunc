@@ -1,0 +1,26 @@
+output: generated
+
+definitions:
+  ts:
+    types:
+      int32: number
+      int64: number
+      double: number
+      boolean: boolean
+      string: string
+      date: Date
+    helpers:
+      '"now()"': new Date()
+
+generators:
+  - name: TS Models
+    ignore: model_ignore
+    template: templates/model.ts.go.tpl
+    output: models/{{.Model.Name | KebabCase}}.ts
+    from: ts
+
+  - name: TS Service
+    ignore: service_ignore
+    template: templates/service.ts.go.tpl
+    output: services/{{ .Model.Name | KebabCase }}.service.ts
+    from: ts
