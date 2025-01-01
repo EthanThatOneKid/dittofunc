@@ -1,0 +1,33 @@
+Auxiliary:
+  id:
+    type: int64
+    pk: true
+  name: string
+  active: boolean
+  idUser: int64
+  userName: string
+  # OPTIONS
+  (filter): AuxiliaryFilter
+
+AuxiliaryFilter:
+  id:
+    type: int64
+    default: -1
+  active:
+    type: int32
+    default: -1
+  idUser:
+    type: int64
+    default: -1
+  # OPTIONS
+  (service_ignore): true
+
+Vector:
+  x: int64
+  "y": int64
+
+Foo:
+  bar: Auxiliary
+  vectors:
+    type: Vector
+    array: true
